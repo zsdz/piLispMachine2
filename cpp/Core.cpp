@@ -1,3 +1,5 @@
+#include <unistd.h>
+
 #include "MAL.h"
 #include "Environment.h"
 #include "StaticList.h"
@@ -533,6 +535,42 @@ BUILTIN("with-meta")
     malValuePtr obj  = *argsBegin++;
     malValuePtr meta = *argsBegin++;
     return obj->withMeta(meta);
+}
+
+/*
+BUILTIN("read-string")
+{
+    CHECK_ARGS_IS(1);
+    ARG(malString, str);
+
+    return readStr(str->value());
+}
+
+BUILTIN("time-ms")
+{
+    CHECK_ARGS_IS(0);
+
+    using namespace std::chrono;
+    milliseconds ms = duration_cast<milliseconds>(
+        high_resolution_clock::now().time_since_epoch()
+    );
+
+    return mal::integer(ms.count());
+}
+*/
+
+BUILTIN("pwd")
+{
+    CHECK_ARGS_IS(0);
+
+    char buf[1024];
+
+    getcwd(buf, sizeof(buf));
+
+    //std::cout<<buf<<std::endl;
+
+    //return NULL;
+    return readStr(buf);
 }
 
 void installCore(malEnvPtr env) {

@@ -1,5 +1,6 @@
-cpp/Core.o cpp/Core.d: cpp/Core.cpp cpp/MAL.h cpp/Debug.h \
- ../../install/aarch64-none-circle/include/stdio.h \
+cpp/Core.o cpp/Core.d: cpp/Core.cpp \
+ ../../install/aarch64-none-circle/include/unistd.h \
+ ../../install/aarch64-none-circle/include/sys/unistd.h \
  ../../install/aarch64-none-circle/include/_ansi.h \
  ../../install/aarch64-none-circle/include/newlib.h \
  ../../install/aarch64-none-circle/include/_newlib_version.h \
@@ -9,16 +10,17 @@ cpp/Core.o cpp/Core.d: cpp/Core.cpp cpp/MAL.h cpp/Debug.h \
  ../../install/aarch64-none-circle/include/sys/cdefs.h \
  ../../install/aarch64-none-circle/include/machine/_default_types.h \
  /home/wk/protool/arm-gnu-toolchain-13.2.Rel1-x86_64-aarch64-none-elf/lib/gcc/aarch64-none-elf/13.2.1/include/stddef.h \
- /home/wk/protool/arm-gnu-toolchain-13.2.Rel1-x86_64-aarch64-none-elf/lib/gcc/aarch64-none-elf/13.2.1/include/stdarg.h \
- ../../install/aarch64-none-circle/include/sys/reent.h \
- ../../install/aarch64-none-circle/include/_ansi.h \
- ../../install/aarch64-none-circle/include/sys/_types.h \
- ../../install/aarch64-none-circle/include/machine/_types.h \
- ../../install/aarch64-none-circle/include/sys/lock.h \
  ../../install/aarch64-none-circle/include/sys/types.h \
+ ../../install/aarch64-none-circle/include/machine/_types.h \
+ ../../install/aarch64-none-circle/include/sys/_types.h \
  ../../install/aarch64-none-circle/include/sys/_stdint.h \
  ../../install/aarch64-none-circle/include/sys/_pthreadtypes.h \
- ../../install/aarch64-none-circle/include/machine/types.h \
+ ../../install/aarch64-none-circle/include/machine/types.h cpp/MAL.h \
+ cpp/Debug.h ../../install/aarch64-none-circle/include/stdio.h \
+ ../../install/aarch64-none-circle/include/_ansi.h \
+ /home/wk/protool/arm-gnu-toolchain-13.2.Rel1-x86_64-aarch64-none-elf/lib/gcc/aarch64-none-elf/13.2.1/include/stdarg.h \
+ ../../install/aarch64-none-circle/include/sys/reent.h \
+ ../../install/aarch64-none-circle/include/sys/lock.h \
  ../../install/aarch64-none-circle/include/sys/stdio.h \
  ../../install/aarch64-none-circle/include/stdlib.h \
  ../../install/aarch64-none-circle/include/machine/stdlib.h \

@@ -4,4 +4,4 @@ This project is another edition of my project [piLispMachine](https://github.com
 
 ![1](pic/basicLispFunction.jpg)
 
-later I'll update both project or one of it
+I can only support the `(pwd)` command now...(can't support command `(ls)`)
