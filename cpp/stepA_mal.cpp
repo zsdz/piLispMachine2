@@ -1,11 +1,16 @@
-#include "MAL.h"
+#include "../util.h"
 
+#include "MAL.h"
 #include "Environment.h"
 //#include "ReadLine.h"
 #include "Types.h"
 
+#include <unistd.h>
+
 #include <iostream>
 #include <memory>
+
+using namespace std;
 
 malValuePtr READ(const String& input);
 String PRINT(malValuePtr ast);
@@ -23,7 +28,8 @@ static malEnvPtr replEnv(new malEnv);
 //int main(int argc, char* argv[])
 int mainn()
 {
-    String prompt = "user> ";
+    cout<<GREEN "piLispMachine2" RESET<<endl<<endl;
+
     String input;
     installCore(replEnv);
     installFunctions(replEnv);
@@ -39,14 +45,37 @@ int mainn()
     
     //rep("(println (str \"Mal [\" *host-language* \"]\"))", replEnv);
     //while (s_readLine.get(prompt, input)) {
-    std::cout<<"user> ";
+    string prompt;
+    char pathName[1024];
+    //std::cout<<"user> ";
 
+    /*
     while(std::getline(std::cin,input)){
         String out = safeRep(input, replEnv);
         if (out.length() > 0)
-            std::cout << out << "\n";
+            std::cout << out << endl;
             std::cout<<"user> ";
     }
+    */
+   for(;;){
+        getcwd(pathName, sizeof(pathName));
+
+        prompt.clear();
+
+        prompt.append("[");
+        prompt.append(pathName);
+        prompt.append("]> ");
+        // printf("user> ");
+        cout << prompt;
+
+        getline(cin,input);
+
+        String out = safeRep(input, replEnv);
+
+        if (out.length() > 0)
+            cout << out << endl;
+   }
+    
     return 0;
 }
 

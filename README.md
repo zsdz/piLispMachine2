@@ -2,6 +2,6 @@
 
 This project is another edition of my project [piLispMachine](https://github.com/zsdz/piLispMachine).The origin project use [microlisp](https://github.com/lazear/microlisp) as os's shell and program language,and this one use [mal](https://github.com/kanaka/mal)'s c++ edition:
 
-![1](./pic/basicLispFunction.jpg)
+![1](./pic/basicFunction.jpg)
 
-I can only support the `(pwd)` command now...(can't support command `(ls)`)
+

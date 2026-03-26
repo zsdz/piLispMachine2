@@ -1,4 +1,6 @@
 #include <unistd.h>
+#include <sys/stat.h>
+#include <dirent.h>
 
 #include "MAL.h"
 #include "Environment.h"
@@ -8,6 +10,8 @@
 #include <chrono>
 #include <fstream>
 #include <iostream>
+
+#include "../util.h"
 
 #define CHECK_ARGS_IS(expected) \
     checkArgsIs(name.c_str(), expected, \
@@ -557,6 +561,23 @@ BUILTIN("time-ms")
 
     return mal::integer(ms.count());
 }
+
+BUILTIN("println")
+{
+    std::cout << printValues(argsBegin, argsEnd, " ", false) << "\n";
+    return mal::nilValue();
+}
+
+BUILTIN("prn")
+{
+    std::cout << printValues(argsBegin, argsEnd, " ", true) << "\n";
+    return mal::nilValue();
+}
+
+BUILTIN("pr-str")
+{
+    return mal::string(printValues(argsBegin, argsEnd, " ", true));
+}
 */
 
 BUILTIN("pwd")
@@ -571,6 +592,82 @@ BUILTIN("pwd")
 
     //return NULL;
     return readStr(buf);
+}
+
+//unlike linux's ls command,this ls have no parameter
+BUILTIN("ls")
+{
+    CHECK_ARGS_IS(0);
+
+    char pathName[1024];
+    getcwd(pathName, sizeof(pathName));
+    DIR *const dir = opendir(pathName);
+
+    struct dirent *dp;
+    struct stat statbuf;
+
+    while ((dp = readdir(dir)) != nullptr)
+    {   
+        stat(dp->d_name, &statbuf);
+
+        if(S_ISDIR(statbuf.st_mode)){
+            printf("\t" MAGENTA "%s" RESET "\n",dp->d_name);
+        }else
+        {
+            printf("\t%s\n",dp->d_name);
+        }             
+    }
+
+    //return mal::string("All files and floders of current folder are listed above");
+    //return mal::nilValue();
+    return mal::string(YELLOW "Done" RESET);
+}
+
+BUILTIN("cd")
+{
+    CHECK_ARGS_IS(1);
+
+    ARG(malString, str);
+
+    //return readStr(str->value());
+
+    if (chdir(str->value().c_str())!= 0)
+    {
+        printf("cd failed unexpectedly\n");
+    }
+
+    //return mal::nilValue();
+    return mal::string(YELLOW "Done" RESET);
+}
+
+BUILTIN("mkdir")
+{
+    CHECK_ARGS_IS(1);
+
+    ARG(malString, str);
+
+    if (mkdir(str->value().c_str(),0)!= 0)
+    {
+        printf("mkdir failed unexpectedly\n");
+    }
+
+    //return mal::nilValue();
+    return mal::string(YELLOW "Done" RESET);
+}
+
+BUILTIN("unlink")
+{
+    CHECK_ARGS_IS(1);
+
+    ARG(malString, str);
+
+    if (unlink(str->value().c_str())!= 0)
+    {
+        printf("unlink failed unexpectedly\n");
+    }
+
+    //return mal::nilValue();
+    return mal::string(YELLOW "Done" RESET);
 }
 
 void installCore(malEnvPtr env) {
